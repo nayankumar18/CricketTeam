@@ -13,7 +13,7 @@ const initializeAndServer = async () => {
       filename: dbPath,
       driver: sqlite3.Database,
     });
-    app.listen(3001, () => {
+    app.listen(3000, () => {
       console.log("Server is running at http://localhost:/3000/");
     });
   } catch (e) {
@@ -28,5 +28,6 @@ app.get("/players/", async (request, response) => {
     FROM 
     cricket_team;`;
   const dbArray = await db.all(dbQuery);
-  response.send(dbArray);
+  response.send( playersArray.map((eachPlayer) =>
+      convertDbObjectToResponseObject(eachPlayer));
 });
